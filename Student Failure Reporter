@@ -1,0 +1,82 @@
+function copyRows() {
+  //Initialize variables
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var dataSheet = ss.getSheetByName("Sheet1");
+  
+ 
+  //Create output Sheet
+  ss.insertSheet("Output");
+  
+  var writeSheet = ss.getSheetByName("Output");
+  
+  
+  //Delete unwanted columns (1, 3, 4, 7, 9) - MODIFY DEPENDING ON COLUMNS IN YOUR REPORT
+  dataSheet.deleteColumn(1); //Deletes first column
+  dataSheet.deleteColumn(2); // Deletes third column (because it shifts after every deletion)
+  dataSheet.deleteColumn(2); //Deletes fourth column
+  dataSheet.deleteColumn(4); //Deletes 7th column
+  dataSheet.deleteColumn(5); //Deletes 9th column
+  
+  
+  //Delete unwanted Sheets
+  var deleteSheet2 = ss.getSheetByName("Sheet2");
+  var deleteSheet3 = ss.getSheetByName("Sheet3");
+  ss.deleteSheet(deleteSheet2);
+  ss.deleteSheet(deleteSheet3);  
+  
+  
+ 
+  ss = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
+  var rows = ss.getLastRow(); 
+  var cols = 4;
+  var input = ss.getRange(1,1, rows,cols).getValues();
+  
+  var students = [];
+  for(var i = 0; i < input.length; i++) {
+    var name = input[i][0];
+    var class = {
+      score: input[i][1],
+      class: input[i][2],
+      teacher: input[i][3]
+    };
+    
+    var j;
+    for(j = 0; j < students.length; j++) {
+      if(students[j].name == name) {
+        students[j].classes.push(class);
+        break;
+      }
+    }
+    if(j == students.length) {
+      students.push({
+        name: name,
+        classes: [class]
+      });
+    }
+  }
+  
+  var ts = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Output');
+  
+  var output = [];
+  for(var i = 0; i < students.length; i++) {
+    output[i] = [students[i].name];
+    for(var j = 0; j < students[i].classes.length; j++) {
+      output[i].push(students[i].classes[j].score,
+                     students[i].classes[j].class,
+                     students[i].classes[j].teacher);
+    }
+    ts.getRange(i+1,1, 1,output[i].length).setValues([output[i]]);
+  }
+
+    
+//Insert row at top for header
+
+ts.insertRowBefore(1);
+  
+//Write data to header row
+  var headerRange = writeSheet.getRange("A1:V1");
+  var headerValues = [
+    ["name", "grade1", "class1", "teacher1","grade2", "class2", "teacher2","grade3", "class3", "teacher3","grade4", "class4", "teacher4","grade5", "class5", "teacher5","grade6", "class6", "teacher6","grade7", "class7", "teacher7"]
+    ]
+  headerRange.setValues(headerValues); 
+}
