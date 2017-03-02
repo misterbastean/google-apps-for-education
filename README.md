@@ -9,3 +9,10 @@ Output from PowerSchool (or other gradebook system) is a report of all students 
 The script deletes all this - be sure to modify to match your report.
 
 Example Input: https://docs.google.com/spreadsheets/d/15MA9W48YyLVG4G5GxNWu1CFFgI1kT77QEI2PLo_drAo/edit?usp=sharing
+
+
+
+
+
+"Calendar Color Changer"
+Will search through your Google Calendar and change the color of events based on keywords you define. Edit the top section of the code block (between the comments) in order to customize.
