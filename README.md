@@ -8,7 +8,7 @@ Output from PowerSchool (or other gradebook system) is a report of all students 
 
 The script deletes all this - be sure to modify to match your report.
 
-Example Input: https://docs.google.com/spreadsheets/d/15MA9W48YyLVG4G5GxNWu1CFFgI1kT77QEI2PLo_drAo/edit?usp=sharing
+Example Input: https://docs.google.com/spreadsheets/d/1TqdVmB507eBNLuPynk2oAiDeT7L8hbBgiThDfZ-KUuY
 
 
 
